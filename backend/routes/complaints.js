@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
     let resolvedDepartmentId = department_id || null;
 
     try {
-      const aiResponse = await axios.post(AI_SERVICE_URL, { title, description }, { timeout: 5000 });
+      const aiResponse = await axios.post(AI_SERVICE_URL, { title, description }, { timeout: 25000 });
       if (aiResponse.data.success) {
         aiCategory = aiResponse.data.ai_category;
         aiUrgencyScore = aiResponse.data.ai_urgency_score;
