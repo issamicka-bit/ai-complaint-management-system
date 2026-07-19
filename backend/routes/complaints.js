@@ -4,7 +4,9 @@ const router = express.Router();
 const pool = require('../config/db');
 const axios = require('axios');
 
-const AI_SERVICE_URL = 'http://localhost:8000/predict';
+const AI_SERVICE_URL = process.env.AI_SERVICE_URL
+  ? `${process.env.AI_SERVICE_URL}/predict`
+  : 'http://localhost:8000/predict';
 
 // ============ CREATE COMPLAINT (Wasilisha Lalamiko) ============
 // POST /api/complaints

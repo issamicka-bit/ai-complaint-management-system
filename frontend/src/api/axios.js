@@ -2,11 +2,18 @@
 // Sehemu moja ya kuunganisha frontend na backend.
 // Faili zote nyingine zita-import kutoka hapa badala ya
 // kuandika "http://localhost:5000" kila mahali.
+//
+// Kwa development: inatumia localhost. Kwa production (baada ya deploy):
+// inatumia VITE_API_URL iliyowekwa kwenye Vercel/Netlify environment variables.
 
 import axios from 'axios';
 
+const baseURL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : 'http://localhost:5000/api';
+
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL,
 });
 
 // Kila request inayotoka, ongeza token (kama ipo) kiotomatiki
