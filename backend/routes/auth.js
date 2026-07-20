@@ -153,4 +153,22 @@ router.post('/google', async (req, res) => {
   }
 });
 
+// ============ TEMPORARY: Make a user admin (ITAONDOLEWA BAADAYE) ============
+// GET /api/auth/make-admin?email=...&secret=...
+router.get('/make-admin', async (req, res) => {
+  try {
+    const { email, secret } = req.query;
+    if (secret !== 'sauti2026setup') {
+      return res.status(403).json({ success: false, message: 'Invalid secret' });
+    }
+    const result = await pool.query(
+      "UPDATE users SET role = 'admin', department_id = NULL WHERE email = $1 RETURNING user_id, email, role",
+      [email]
+    );
+    res.json({ success: true, updated: result.rows });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 module.exports = router;
